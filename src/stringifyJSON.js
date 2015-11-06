@@ -39,21 +39,30 @@ var stringifyJSON = function(obj) {
 			for (var i = 0;  i < keyArr.length; i++){
 				if (typeof obj[keyArr[i]] == "string"){
 					string += '"' + keyArr[i] + '"' + ':' + '"' + obj[keyArr[i]] + '"';
+					if(i+1 < keyArr.length){
+						string += ',';
+					}
 				}
 				else if(typeof obj[keyArr[i]] == "number" || typeof obj[keyArr[i]] == "boolean"){
 					string += '"' + keyArr[i] + '"' + ':' + obj[keyArr[i]];
+					if(i+1 < keyArr.length){
+						string += ',';
+					}
 				}
 				else if (typeof obj[keyArr[i]] == "object"){
 					
 					//RECURSIVE CASE
 					string+= '"' + keyArr[i] + '"' + ':' + stringifyJSON(obj[keyArr[i]]);
+					if(i+1 < keyArr.length){
+						string += ',';
+					}
 				}
 				else if (typeof obj[keyArr[i]] == "function" || typeof obj[keyArr[i]] == "symbol" || typeof obj[keyArr[i]] == "undefined") {
 					//function, symbols, and undefined types are omitted
 					string+= '';
-				}
-				if(i+1 < keyArr.length){
-					string += ',';
+					// if(i+1 < keyArr.length){
+					// 	string += ',';
+					// }
 				}
 			}
 			
